@@ -18,12 +18,10 @@ const proxyApiUrl =
   '';
 
 module.exports = () => {
-  const IS_PLAYSTORE = process.env.APP_VARIANT === 'playstore';
   const IS_TV = process.env.EXPO_TV === '1' || process.env.APP_VARIANT === 'tv';
-  const HAS_FIREBASE =
-    !IS_PLAYSTORE && (hasAndroidGoogleServices || hasIosGooglePlist);
-  const PACKAGE_NAME = IS_PLAYSTORE ? 'vega.app' : 'com.vega';
-  const APP_SCHEME = IS_PLAYSTORE ? 'vegaapp' : 'com.vega';
+  const HAS_FIREBASE = hasAndroidGoogleServices || hasIosGooglePlist;
+  const PACKAGE_NAME = 'com.denzkie.tv';
+  const APP_SCHEME = 'denzkietv';
   const plugins = [
     './plugins/with-custom-native-modules.js',
       [
@@ -145,9 +143,9 @@ module.exports = () => {
   ];
   return {
     expo: {
-      name: 'Vega',
+      name: 'Denzkie',
       scheme: [APP_SCHEME, 'vega-cast'],
-      displayName: 'Vega',
+      displayName: 'Denzkie',
       jsEngine: 'hermes',
       newArchEnabled: true,
       autolinking: {exclude: ['expo-splash-screen']},
@@ -161,7 +159,7 @@ module.exports = () => {
         reactCompiler: true,
       },
       android: {
-        ...(!IS_PLAYSTORE && hasAndroidGoogleServices
+        ...(hasAndroidGoogleServices
           ? {googleServicesFile: androidGoogleServicesFile}
           : {}),
         package: PACKAGE_NAME,
@@ -185,12 +183,6 @@ module.exports = () => {
           'android.permission.READ_EXTERNAL_STORAGE',
           'android.permission.READ_MEDIA_VIDEO',
           'android.permission.WRITE_EXTERNAL_STORAGE',
-          ...(IS_PLAYSTORE
-            ? [
-                'android.permission.REQUEST_INSTALL_PACKAGES',
-                'com.google.android.gms.permission.AD_ID',
-              ]
-            : []),
         ],
         queries: [
           {action: 'VIEW', data: {scheme: 'http'}},
@@ -206,7 +198,7 @@ module.exports = () => {
         supportsPictureInPicture: true,
       },
       ios: {
-        ...(!IS_PLAYSTORE && hasIosGooglePlist
+        ...(hasIosGooglePlist
           ? {googleServicesFile: iosGoogleServicesFile}
           : {}),
       },
@@ -224,7 +216,6 @@ module.exports = () => {
           projectId: '40d98354-d3c8-4616-ab2e-70d9c297091f',
         },
         hasFirebase: HAS_FIREBASE,
-        isPlayStore: IS_PLAYSTORE,
         isTV: IS_TV,
         tmdbApiKey,
         proxyApiUrl,

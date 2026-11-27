@@ -157,7 +157,7 @@ export default function PlayerSettings({navigation}: Props) {
             {supportsVideoIntents && (
               <SettingsSwitchRow
                 title="Open videos from other apps"
-                description="Show Vega in Android’s Open with and video sharing options"
+                description="Show Denzkie Tv in Android’s Open with and video sharing options"
                 value={openVideosFromOtherApps}
                 onValueChange={async next => {
                   if (updatingVideoIntents.current) return;

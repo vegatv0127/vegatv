@@ -102,17 +102,17 @@ class VegaCastService {
     const timeout=new AbortController();const timer=signal?undefined:setTimeout(()=>timeout.abort(),20_000);
     try{
       const response=await fetch(serviceUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:signal||timeout.signal});
-      const result=await response.json();if(!response.ok)throw new Error(result.error||'Vega Cast connection failed');return result;
+      const result=await response.json();if(!response.ok)throw new Error(result.error||'Denzkie Tv Cast connection failed');return result;
     }finally{if(timer)clearTimeout(timer);}
   }
-  private auth(){if(!this.current)throw new Error('Connect a Vega Cast receiver first');return{kind:'controller',receiverId:this.current.receiverId,controllerId:this.current.controllerId,token:this.current.token};}
+  private auth(){if(!this.current)throw new Error('Connect a Denzkie Tv Cast receiver first');return{kind:'controller',receiverId:this.current.receiverId,controllerId:this.current.controllerId,token:this.current.token};}
   cancelPairing(){this.pairingGeneration++;this.pairing={invitation:'',pairing:false};this.publish();}
   async pair(input:string|VegaReceiver):Promise<string>{
     if(this.pairing.pairing)throw new Error('Pairing is already in progress');
     let serviceUrl='';let code='';let discoveryToken:string|undefined;let receiverId:string|undefined;
     if(typeof input==='string'){
       const invitation=new URL(input.trim());
-      if(invitation.protocol!=='vega-cast:'||invitation.hostname!=='pair')throw new Error('Scan a Vega Cast receiver QR code');
+      if(invitation.protocol!=='vega-cast:'||invitation.hostname!=='pair')throw new Error('Scan a Denzkie Tv Cast receiver QR code');
       serviceUrl=invitation.searchParams.get('server')||'';code=invitation.searchParams.get('code')||'';
       if(!/^\d{6}$/.test(code))throw new Error('This QR code has expired or is invalid');
     }else{serviceUrl=input.serviceUrl||'';discoveryToken=input.discoveryToken;receiverId=input.id;if(!discoveryToken)throw new Error('Search for the receiver again');}
@@ -124,7 +124,7 @@ class VegaCastService {
     const check=()=>{if(generation!==this.pairingGeneration)throw new Error('Pairing canceled');};
     this.pairing={invitation:typeof input==='string'?input:'',pairing:true};this.publish();
     try {
-      const request=await this.request(serviceUrl,{op:'pair',...(discoveryToken?{receiverId,discoveryToken}:{code}),name:Constants.deviceName?.trim()||'Vega Mobile'});check();
+      const request=await this.request(serviceUrl,{op:'pair',...(discoveryToken?{receiverId,discoveryToken}:{code}),name:Constants.deviceName?.trim()||'Denzkie Tv Mobile'});check();
       this.pairing={...this.pairing,confirmation:request.confirmation};this.publish();
       const deadline=Date.now()+120_000;
       while(Date.now()<deadline){
@@ -174,7 +174,7 @@ class VegaCastService {
         if(this.current)void this.request(this.current.serviceUrl,{op:'send',auth:this.auth(),message:{type:'RTC_ERROR',mediaId:message.mediaId,transportId:message.transportId,error:text}}).catch(()=>{});
       };
       if(delivery)void delivery.signal(message).catch(error=>negotiationError(error.message||'Phone could not create the encrypted connection'));
-      else if(message.type==='RTC_OFFER')negotiationError('Phone delivery session is no longer available. Select the stream again in Vega Mobile.');
+      else if(message.type==='RTC_OFFER')negotiationError('Phone delivery session is no longer available. Select the stream again in Denzkie Tv Mobile.');
       return;
     }
     if(message.type==='ACK'){
@@ -187,7 +187,7 @@ class VegaCastService {
       const media=this.media;
       if(media&&media.id===message.mediaId&&message.delivery==='phone-proxy'){
         this.media={...media,delivery:'phone-proxy',attempt:1};
-        void remoteDeliveryService.startForegroundService({title:media.title,subtitle:'Vega Cast Ã‚Â· phone-assisted playback',isPlaying:true}).catch(()=>{});
+        void remoteDeliveryService.startForegroundService({title:media.title,subtitle:'Denzkie Tv Cast Ã‚Â· phone-assisted playback',isPlaying:true}).catch(()=>{});
       }
       return;
     }
@@ -314,7 +314,7 @@ class VegaCastService {
         subtitles.push({...track,type:track.type||/\.(srt|vtt|ass|ssa|ttml)(?:[?#]|$)/i.exec(track.uri)?.[1],uri:subtitle.streamUrl});
       }
       if(generation!==this.generation)throw new Error('Source changed while preparing proxy');
-      await remoteDeliveryService.startForegroundService({title:media.title,subtitle:'Vega Cast Ã‚Â· proxy ready',isPlaying:false});
+      await remoteDeliveryService.startForegroundService({title:media.title,subtitle:'Denzkie Tv Cast Ã‚Â· proxy ready',isPlaying:false});
       if(generation!==this.generation)throw new Error('Source changed while preparing proxy');
       return{source:{url:prepared.streamUrl,format:media.source.format},subtitles};
     }catch(error){for(const key of owned){this.sessions.delete(key);await remoteDeliveryService.cleanupSession(key).catch(()=>{});}if(!this.sessions.size)await remoteDeliveryService.stopForegroundService().catch(()=>{});throw error;}
@@ -333,7 +333,7 @@ class VegaCastService {
   private async fallback(request:any){
     if(!this.media||request.mediaId!==this.media.id||this.fallbackUsed)return;
     this.fallbackUsed=true;
-    if(request.category==='UNSUPPORTED_VIDEO_CODEC')throw new Error('This receiver cannot decode the video. Video transcoding is not available in this Vega Cast path.');
+    if(request.category==='UNSUPPORTED_VIDEO_CODEC')throw new Error('This receiver cannot decode the video. Video transcoding is not available in this Denzkie Tv Cast path.');
     await this.deliverProxy({...this.media,startPosition:Math.max(0,Number(request.position)||0)},request.category,this.generation);
   }
   private async deliverProxy(media:CastMedia,category:string,generation:number){
@@ -358,7 +358,7 @@ class VegaCastService {
         subtitles.push({...track,type:track.type||/\.(srt|vtt|ass|ssa|ttml)(?:[?#]|$)/i.exec(track.uri)?.[1],uri:sub.streamUrl});
       }
       if(generation!==this.generation)return;
-      await remoteDeliveryService.startForegroundService({title:media.title,subtitle:'Vega Cast Ã‚Â· phone-assisted playback',isPlaying:true});
+      await remoteDeliveryService.startForegroundService({title:media.title,subtitle:'Denzkie Tv Cast Ã‚Â· phone-assisted playback',isPlaying:true});
       const replacement:CastMedia={...media,source:{url:prepared.streamUrl,format:mode==='ffmpeg'?'mp4':media.source.format},subtitles,delivery:'phone-proxy',attempt:1,processing:mode==='ffmpeg'?'remuxed':'original'};
       replacement.proxy={source:replacement.source,subtitles};
       await this.prepareSecureDelivery(replacement);

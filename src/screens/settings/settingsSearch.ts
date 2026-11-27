@@ -47,34 +47,26 @@ const entries: SearchEntry[] = [
     'Export backup', 'Import backup', 'Erase all local data'].map(
     (label): SearchEntry => ({label, page: 'Data management', route: 'DataManagement'}),
   ),
-  {label: 'About & updates', page: 'Vega', route: 'About', keywords: 'app information version'},
-  ...['Version', 'Download updates in Vega', 'Check on startup', 'Update channel', 'Check for updates',
+  {label: 'About & updates', page: 'Denzkie Tv', route: 'About', keywords: 'app information version'},
+  ...['Version', 'Download updates in Denzkie Tv', 'Check on startup', 'Update channel', 'Check for updates',
     'Detailed logging', 'Export logs', 'Clear logs'].map(
     (label): SearchEntry => ({
       label,
       page: 'About & updates',
       route: 'About',
-      standalone: ['Download updates in Vega', 'Check on startup', 'Update channel', 'Check for updates'].includes(label),
+      standalone: ['Download updates in Denzkie Tv', 'Check on startup', 'Update channel', 'Check for updates'].includes(label),
       phoneOnly: ['Detailed logging', 'Export logs', 'Clear logs'].includes(label),
       keywords: label === 'Update channel' ? 'stable beta prerelease nightly' : undefined,
     }),
   ),
 ];
 
-export function searchSettings(query: string, platform: {isTV: boolean; isPlayStore: boolean}) {
+export function searchSettings(query: string, platform: {isTV: boolean}) {
   const terms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
   if (!terms.length) return [];
 
   return entries
-    .filter(entry => !(entry.phoneOnly && platform.isTV) && !(entry.standalone && platform.isPlayStore))
-    .map(entry => {
-      if (!platform.isPlayStore || entry.route !== 'About') return entry;
-      return {
-        ...entry,
-        label: entry.label === 'About & updates' ? 'About Vega' : entry.label,
-        page: entry.page === 'About & updates' ? 'About Vega' : entry.page,
-      };
-    })
+    .filter(entry => !(entry.phoneOnly && platform.isTV))
     .filter(entry => {
 
       const searchable = `${entry.label} ${entry.keywords ?? ''}`.toLowerCase();

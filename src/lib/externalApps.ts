@@ -20,7 +20,7 @@ export async function openExternalApp(
   title?: string,
 ) {
   if (!NativeModules.ExternalApps)
-    throw new Error('Rebuild Vega to use external app selection.');
+    throw new Error('Rebuild Denzkie Tv to use external app selection.');
   return NativeModules.ExternalApps.open(
     url,
     mime,

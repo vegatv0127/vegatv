@@ -125,7 +125,7 @@ export const saveSubtitle = (videoKey: string, track: SubtitleInput, origin: Sav
   }
 });
 
-/** Deletes only Vega's cache copy, never the original picked file. */
+/** Deletes only Denzkie Tv's cache copy, never the original picked file. */
 export const removeSavedSubtitle = (videoKey: string, id: string): Promise<void> => serialize(async () => {
   const items = read(), item = items.find(entry => entry.videoKey === videoKey && entry.id === id);
   if (!item) return;

@@ -7,7 +7,7 @@ export const FLAGS = {
 
 export const themes: {name: string; color: string}[] = [
   {
-    name: 'Vega',
+    name: 'Denzkie Tv',
     color: '#FF6347',
   },
   {
@@ -45,7 +45,6 @@ export const themes: {name: string; color: string}[] = [
 ];
 
 export const socialLinks = {
-  github: 'https://github.com/vega-org/vega-app',
-  discord: 'https://discord.gg/cr42m6maWy',
-  sponsor: 'https://github.com/sponsors/Zenda-Cross',
+  github: 'https://github.com/vegatv0127/vegatv',
+
 };

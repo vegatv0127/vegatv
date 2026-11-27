@@ -130,7 +130,6 @@ import AppText from '../../components/ui/Text';
 import {useM3Colors} from '../../theme/M3PaletteContext';
 import {TVFocusable, TVFocusGuide} from '../../components/tv';
 import {isTV} from '../../lib/tv';
-import Constants from 'expo-constants';
 import {searchSettings} from './settingsSearch';
 import {useFloatingTabBarInset} from '../../components/navigation/FloatingTabBarInsetContext';
 type Props = NativeStackScreenProps<SettingsStackParamList, 'Settings'>;
@@ -160,8 +159,7 @@ const Settings = ({navigation}: Props) => {
     settingsStorage.setSettingsSearchHistory(next);
     setSearchHistory(next);
   };
-  const isPlayStore = Boolean(Constants.expoConfig?.extra?.isPlayStore);
-  const results = searchSettings(searchQuery, {isTV, isPlayStore});
+  const results = searchSettings(searchQuery, {isTV});
   const searching = searchQuery.trim().length > 0;
   const providerManagerRowRef = React.useRef<View>(null);
   const tabNavigation =
@@ -342,7 +340,7 @@ const Settings = ({navigation}: Props) => {
                             navigation.navigate(result.route);
                             break;
                           default:
-                            navigation.navigate(result.route, {setting: result.target ?? (result.label === result.page || result.page === 'Vega' ? undefined : result.label)});
+                            navigation.navigate(result.route, {setting: result.target ?? (result.label === result.page || result.page === 'Denzkie Tv' ? undefined : result.label)});
                         }
                       }}
                     />
@@ -490,9 +488,9 @@ const Settings = ({navigation}: Props) => {
 
                 {/* About & GitHub section */}
                 <AnimatedSection delay={400}>
-                  <SettingsSection title="Vega">
+                  <SettingsSection title="Denzkie Tv">
                     <SettingsRow
-                      title={isPlayStore ? 'About Vega' : 'About & updates'}
+                      title="About & updates"
                       icon="information-outline"
                       onPress={() => navigation.navigate('About')}
                     />

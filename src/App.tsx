@@ -781,8 +781,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const isPlayStore = Constants.expoConfig?.extra?.isPlayStore;
-    if (!isPlayStore && settingsStorage.isAutoCheckUpdateEnabled()) {
+    if (settingsStorage.isAutoCheckUpdateEnabled()) {
       checkForUpdate(() => {}, settingsStorage.isAutoDownloadEnabled(), false);
     }
   }, []);

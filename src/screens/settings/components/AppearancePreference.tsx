@@ -97,7 +97,7 @@ const AppearancePreference = () => {
             </AppText>
           </SettingsSearchAnchor>
           <AppText role="bodySmall" className="mt-1 text-m3-on-surface-variant">
-            Choose a curated seed for Vega's dark palette
+            Choose a curated seed for Denzkie Tv's dark palette
           </AppText>
           <View className="mt-4 flex-row flex-wrap gap-3">
             {M3_SEEDS.map(seed => {
@@ -152,7 +152,7 @@ const AppearancePreference = () => {
               role="bodySmall"
               className="mt-1 text-m3-on-surface-variant">
               {isTV
-                ? 'Choose the icon color shown on your home screen. It applies after you leave Vega.'
+                ? 'Choose the icon color shown on your home screen. It applies after you leave Denzkie Tv.'
                 : 'Choose the icon color shown on your home screen'}
             </AppText>
             <View className="mt-4 flex-row gap-3">

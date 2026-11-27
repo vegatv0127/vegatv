@@ -474,7 +474,7 @@ class NotificationService {
   async requestUnknownAppSourcesPermission(): Promise<boolean> {
     const packageName = RNApkInstaller.packageName;
     if (!packageName) {
-      throw new Error('Unable to determine the Vega Android package name');
+      throw new Error('Unable to determine the Denzkie Tv Android package name');
     }
 
     await IntentLauncher.startActivityAsync(
@@ -512,7 +512,7 @@ class NotificationService {
           await this.displayUpdateNotification({
             id: 'downloadComplete',
             title: 'Install permission required',
-            body: 'Allow Vega to install unknown apps, then tap to retry',
+            body: 'Allow Denzkie Tv to install unknown apps, then tap to retry',
             data: {filePath: apkPath, action: 'install'},
           });
           return;

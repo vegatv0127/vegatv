@@ -22,7 +22,7 @@ const DOWNLOAD_LOCATION_PREFIX = 'download-location:';
 export const getTVDefaultDownloadLocation = (): PathDownloadLocation => ({
   type: 'path',
   path: `${RNFS.ExternalDirectoryPath || RNFS.DocumentDirectoryPath}/Vega Downloads`,
-  label: 'Vega app storage',
+  label: 'Denzkie Tv app storage',
 });
 
 export const serializeDownloadLocation = (
@@ -214,7 +214,7 @@ export const findSafEntryByName = async (
   return entries.find(entry => getSafEntryName(entry) === entryName);
 };
 
-// Extensions Vega itself writes for legacy downloads stored in the folder root.
+// Extensions Denzkie Tv itself writes for legacy downloads stored in the folder root.
 // Matching is limited to these so unrelated user files that merely share the
 // base name (e.g. Inception.nfo, Inception.jpg) are never adopted or deleted.
 export const LEGACY_VIDEO_EXTENSIONS = ['mp4', 'mkv', 'mov', 'avi'];

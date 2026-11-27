@@ -223,17 +223,6 @@ export const AddSourceModal: React.FC<AddSourceModalProps> = ({
               here
             </Text>
           </Text>
-          <Text
-            className="text-sm mt-[4px]"
-            style={{color: colors.onSurfaceVariant, lineHeight: 20}}>
-            or join Discord for support{' '}
-            <Text
-              accessibilityRole="link"
-              style={{color: '#38BDF8', fontSize: 14, lineHeight: 20}}
-              onPress={() => Linking.openURL(socialLinks.discord)}>
-              Discord
-            </Text>
-          </Text>
           <TextInput
             className="h-14 px-4 mt-4"
             focusable={true}

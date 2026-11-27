@@ -325,7 +325,7 @@ class RemotePlaybackManager {
     catch(error){
       if(this.activePayload===payload&&useRemoteStore.getState().connectedDevice?.id===device.id){
         useRemoteStore.getState().setStatus('error');
-        useRemoteStore.getState().setErrorMessage(error instanceof Error?error.message:'Vega Cast playback failed');
+        useRemoteStore.getState().setErrorMessage(error instanceof Error?error.message:'Denzkie Tv Cast playback failed');
       }
       throw error;
     }
@@ -1051,7 +1051,7 @@ class RemotePlaybackManager {
       await this.awaitPlaybackOperation(
         remoteDeliveryService
           .startForegroundService({
-            title: payload.title || 'Vega Media',
+            title: payload.title || 'Denzkie Tv Media',
             subtitle: targetSubtitle,
             artwork: payload.artwork,
             isPlaying: true,
@@ -1137,7 +1137,7 @@ class RemotePlaybackManager {
   }
 
   /** Cast only: serve remuxed streams as HLS so the receiver seeks by itself. */
-  /** Whether the phone volume keys change the receiver volume while Vega is open. */
+  /** Whether the phone volume keys change the receiver volume while Denzkie Tv is open. */
   isVolumeKeysEnabled(): boolean {
     return mainStorage.getBool(VOLUME_KEYS_KEY, false);
   }
@@ -1449,7 +1449,7 @@ class RemotePlaybackManager {
           : {}),
         mediaTracks: mediaTracks.length > 0 ? mediaTracks : undefined,
         metadata: {
-          title: payload.title || 'Vega Media',
+          title: payload.title || 'Denzkie Tv Media',
           subtitle: payload.subtitle || undefined,
           images: hasValidArtwork ? [{url: payload.artwork!}] : undefined,
           type: 'generic',
@@ -1591,7 +1591,7 @@ class RemotePlaybackManager {
                   this.loadOnDlna(
                     device,
                     prep.streamUrl,
-                    this.activePayload.title || 'Vega Playback',
+                    this.activePayload.title || 'Denzkie Tv Playback',
                     newSubUrl,
                     prep.timelineOffsetSeconds || 0,
                     prep.durationSeconds || this.sourceDuration,
@@ -1628,7 +1628,7 @@ class RemotePlaybackManager {
                   this.loadOnDlna(
                     device,
                     this.activePlayUrl,
-                    this.activePayload?.title || 'Vega Playback',
+                    this.activePayload?.title || 'Denzkie Tv Playback',
                     newSubUrl,
                     previousOffset,
                     this.sourceDuration,
@@ -1671,7 +1671,7 @@ class RemotePlaybackManager {
                   this.loadOnDlna(
                     device,
                     previousPlayUrl,
-                    this.activePayload?.title || 'Vega Playback',
+                    this.activePayload?.title || 'Denzkie Tv Playback',
                     restoredSubUrl,
                     previousOffset,
                     previousDuration,

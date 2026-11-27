@@ -66,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        variant: [standalone, playstore]
+        variant: [standalone]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -103,15 +103,7 @@ jobs:
             echo "Forbidden broad storage permission found in ${{ matrix.variant }} manifest"
             exit 1
           fi
-          if [ "${{ matrix.variant }}" = "playstore" ]; then
-            grep -q 'package="vega.app"' "$MANIFEST"
-            if grep -q 'REQUEST_INSTALL_PACKAGES' "$MANIFEST"; then
-              echo "Installer permission found in Play Store manifest"
-              exit 1
-            fi
-          else
-            grep -q 'package="com.vega"' "$MANIFEST"
-          fi
+          grep -q 'package="com.denzkie.tv"' "$MANIFEST"
 
   build-android:
     needs: [check_for_changes, verify-android-manifests]

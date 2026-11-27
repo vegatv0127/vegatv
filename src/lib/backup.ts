@@ -363,13 +363,13 @@ export const parseBackup = (text: string): VegaBackup => {
   try {
     data = JSON.parse(text);
   } catch {
-    throw new Error('This file is not a Vega backup');
+    throw new Error('This file is not a Denzkie Tv backup');
   }
   if (data?.app !== 'vega' || typeof data.version !== 'number') {
-    throw new Error('This file is not a Vega backup');
+    throw new Error('This file is not a Denzkie Tv backup');
   }
   if (data.version > BACKUP_VERSION) {
-    throw new Error('This backup was made by a newer version of Vega');
+    throw new Error('This backup was made by a newer version of Denzkie Tv');
   }
   const {settings, providers, library, history, progress} = data;
   const settingsValid = settings !== undefined && settings !== null &&

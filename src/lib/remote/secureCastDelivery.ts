@@ -4,7 +4,7 @@ import {fromByteArray} from 'base64-js';
 import {Buffer} from 'buffer';
 
 type Signal={type:string;transportId:string;mediaId:string;sdp?:{type:string;sdp:string};candidate?:any};
-/** Serve only URLs registered by Vega's existing media-delivery service. */
+/** Serve only URLs registered by Denzkie Tv's existing media-delivery service. */
 export class SecureCastDelivery {
  private peer:RTCPeerConnection|null=null;
  private channel:RTCDataChannel|null=null;

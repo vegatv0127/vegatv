@@ -8,7 +8,6 @@ module.exports = async ({github, context, core, artifactDirectory}) => {
   if (!/^vega-v[0-9][a-zA-Z0-9.+_-]*\.apk$/.test(apkName)) throw new Error('Invalid generated APK name');
   const assets = [
     {name: apkName, file: 'vega-tv.apk', type: 'application/vnd.android.package-archive'},
-    {name: 'vega-tv-playstore.aab', type: 'application/octet-stream'},
   ];
   // Both outputs must exist before touching the previous successful draft.
   for (const asset of assets) {

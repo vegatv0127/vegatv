@@ -331,7 +331,7 @@ export function parseMkvBuffer(bytes: Uint8Array, filenameOrUrl?: string): Parse
     offset = nextElem;
   }
 
-  // Process tracks into structured Vega Remote types
+  // Process tracks into structured Denzkie Tv Remote types
   const audioTracks: RemoteAudioTrack[] = [];
   const subtitleTracks: RemoteSubtitleTrack[] = [];
   const videoQualities: RemoteQuality[] = [];

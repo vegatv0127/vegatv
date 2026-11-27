@@ -6,7 +6,6 @@ import React, {useState, useEffect, useRef, useCallback} from 'react';
 import {settingsStorage} from '../../lib/storage';
 import * as RNFS from '@dr.pogodin/react-native-fs';
 import * as Application from 'expo-application';
-import Constants from 'expo-constants';
 import {notificationService} from '../../lib/services/Notification';
 import SettingsChoiceDialog from '../../components/ui/SettingsChoiceDialog';
 import SettingsRow from '../../components/ui/SettingsRow';
@@ -59,7 +58,7 @@ const downloadUpdate = async (url: string, name: string) => {
       title: 'Update downloaded',
       message: error ?? (allowed
         ? 'The update is ready to install.'
-        : 'Allow Vega to install unknown apps in Android settings, then return here to install the update.'),
+        : 'Allow Denzkie Tv to install unknown apps in Android settings, then return here to install the update.'),
       actions: [
         {label: 'Close'},
         {
@@ -221,7 +220,7 @@ export const checkForUpdate = async (
   try {
     const beta = settingsStorage.getUpdateChannel() === 'beta';
     const endpoint = beta ? 'releases?per_page=100' : 'releases/latest';
-    const res = await fetch(`https://api.github.com/repos/vega-org/vega-app/${endpoint}`);
+    const res = await fetch(`https://api.github.com/repos/vegatv0127/vegatv/${endpoint}`);
     if (res.status === 403 || res.status === 429) {
       ToastAndroid.show(
         'GitHub API rate limit exceeded. Please wait a few minutes before trying again.',
@@ -296,7 +295,6 @@ const updateChannels = [
 ] as const;
 
 const About = ({navigation}: any) => {
-  const isPlayStore = Boolean(Constants.expoConfig?.extra?.isPlayStore);
   const colors = useM3Colors();
   const backRef = useRef<View>(null);
   const autoDownloadRef = useRef<View>(null);
@@ -403,29 +401,26 @@ const About = ({navigation}: any) => {
             <AppText
               role="headlineLargeEmphasized"
               className="text-m3-on-background">
-              {isPlayStore ? 'About Vega' : 'About & updates'}
+              About & updates
             </AppText>
           </View>
           <AppText role="bodyLarge" className="mt-1 text-m3-on-surface-variant">
-            {isPlayStore ? 'App information' : 'App information and updates'}
+            App information and updates
           </AppText>
         </View>
 
         <SettingsSection title="App">
           <SettingsRow
             title="Version"
-            description={`Vega ${Application.nativeApplicationVersion || ''}`}
+            description={`Denzkie Tv ${Application.nativeApplicationVersion || ''}`}
             icon="information-outline"
-            divider={isPlayStore}
           />
 
-          {!isPlayStore && (
-            <>
-              <SettingsSwitchRow
+                        <SettingsSwitchRow
                 ref={autoDownloadRef}
                 nextFocusUp={backHandle}
-                title="Download updates in Vega"
-                description="Download releases in Vega when you select Update"
+                title="Download updates in Denzkie Tv"
+                description="Download releases in Denzkie Tv when you select Update"
                 value={autoDownload}
                 onValueChange={next => {
                   setAutoDownload(next);
@@ -434,7 +429,7 @@ const About = ({navigation}: any) => {
               />
               <SettingsSwitchRow
                 title="Check on startup"
-                description="Look for a new release when Vega opens"
+                description="Look for a new release when Denzkie Tv opens"
                 value={autoCheckUpdate}
                 onValueChange={next => {
                   setAutoCheckUpdate(next);
@@ -461,8 +456,6 @@ const About = ({navigation}: any) => {
                     : () => checkForUpdate(setUpdateLoading, autoDownload, true)
                 }
               />
-            </>
-          )}
         </SettingsSection>
 
         {!isTV && (
@@ -496,7 +489,7 @@ const About = ({navigation}: any) => {
           </SettingsSection>
         )}
       </SettingsSearchScrollView>
-      {!isPlayStore && channelChooserOpen && (
+      {channelChooserOpen && (
         <SettingsChoiceDialog
           title="Update channel"
           choices={updateChannels}

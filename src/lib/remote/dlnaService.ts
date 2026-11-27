@@ -73,7 +73,7 @@ class DlnaService {
   async loadMedia(
     device: RemoteDevice,
     mediaUrl: string,
-    title = 'Vega Playback',
+    title = 'Denzkie Tv Playback',
     subtitleUrl?: string,
     timelineOffset = 0,
     sourceDuration = 0,

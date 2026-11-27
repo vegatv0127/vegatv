@@ -2615,7 +2615,7 @@ const Player = ({route}: Props): React.JSX.Element => {
           sourceUrl: processedStreamUrl,
           sourceType: selectedStream?.type,
           isLocal: Boolean(isLocalOrDownloadedStream),
-          title: route.params?.primaryTitle || 'Vega Media',
+          title: route.params?.primaryTitle || 'Denzkie Tv Media',
           subtitle: activeEpisode?.title || route.params?.secondaryTitle,
           artwork:
             route.params?.poster?.background || route.params?.poster?.poster,
@@ -3259,7 +3259,7 @@ const Player = ({route}: Props): React.JSX.Element => {
     [setSelectedStream, activeEpisodeKey, clearLocalVideoAssociation],
   );
   useEffect(()=>vegaCastService.setServerSelector((server,position)=>{
-    if(useRemoteStore.getState().connectedDevice?.type!=='vega-cast')throw new Error('Vega Cast is not connected');
+    if(useRemoteStore.getState().connectedDevice?.type!=='vega-cast')throw new Error('Denzkie Tv Cast is not connected');
     const stream=streamData?.find((item:any)=>item.link===server.id||item.link===server.link);
     if(!stream)throw new Error('This server is no longer available');
     videoPositionRef.current={...videoPositionRef.current,position};hasProgressRef.current=true;
